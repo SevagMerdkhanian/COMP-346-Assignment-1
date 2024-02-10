@@ -22,7 +22,7 @@ public class Driver {
     	  * TODO : implement all the operations of main class   																					*
     	  ******************************************************************************************************************************************/
         
-    	Network objNetwork = new Network("network");            /* Activate the network */
+    	Network objNetwork = new Network("network");/* Activate the network */
         objNetwork.start();
         Server objServer = new Server();        
         /* Complete here the code for the main method ...*/
