@@ -21,10 +21,26 @@ public class Driver {
     	 /*******************************************************************************************************************************************
     	  * TODO : implement all the operations of main class   																					*
     	  ******************************************************************************************************************************************/
-        
+    	/* Complete here the code for the main method ...*/
     	Network objNetwork = new Network("network");/* Activate the network */
+        Server objServer = new Server();      
+        Client objClientSending = new Client("sending");
+        Client objClientReceiving = new Client("receiving");
         objNetwork.start();
-        Server objServer = new Server();        
-        /* Complete here the code for the main method ...*/
+        objServer.start();
+        objClientSending.start();
+        objClientReceiving.start();
+        try {
+        	objNetwork.join(); 
+            objServer.join(); 
+            objClientSending.join();
+            objClientReceiving.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        
+        System.out.println("Both threads have finished.");
     }
+        
+    
 }
