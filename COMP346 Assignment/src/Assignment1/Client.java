@@ -221,6 +221,7 @@ public class Client extends Thread{
     	
 		if (clientOperation == "receiving") {
 		    receiveTransactions(transact);
+		    
 		}
     	
     	

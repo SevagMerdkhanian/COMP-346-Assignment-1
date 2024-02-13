@@ -557,7 +557,6 @@ public class Network extends Thread{
     	
     	while (true)
     	{
-		/* Implement here the code for the run method ... */
 
     		
     		
