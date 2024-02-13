@@ -39,7 +39,6 @@ public class Driver {
             e.printStackTrace();
         }
         
-        System.out.println("Both threads have finished.");
     }
         
     
