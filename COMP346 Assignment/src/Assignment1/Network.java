@@ -555,8 +555,8 @@ public class Network extends Thread{
     {	
     	System.out.println("\n DEBUG : Network.run() - starting network thread");
     	
-    	while (true)
-    	{
+    	//while (true)
+    	//{
     		
     		
     		
@@ -576,24 +576,7 @@ public class Network extends Thread{
     		
     		
     		
-    		
-    		
-    		
-    		
-    		
-    		
-    		
-    		
-    		
-    		
-    		
-    		
-    		
-    		
-    		
-    		
-    		
-    		
-    	}    
+
+    	//}    
     }
 }

@@ -28,11 +28,11 @@ public class Driver {
         Client objClientSending = new Client("sending");
         Client objClientReceiving = new Client("receiving");
         //join if we need stuff to run after threads finish
-        objServer.start();
+        
         objNetwork.start();
+        objServer.start();
         objClientSending.start();
         objClientReceiving.start();
-        System.out.println("yes");
         
     }
         

@@ -212,17 +212,21 @@ public class Client extends Thread{
     public void run()
     {   
     	System.out.println(" DEBUG : Client.run() - starting client sending thread connected\r\n");
-    			
+    	//need to make transactions actually run		
     	Transactions transact = new Transactions();
     	readTransactions();
     	long sendClientStartTime, sendClientEndTime, receiveClientStartTime, receiveClientEndTime;
+    	for (int i = 0; i < getNumberOfTransactions(); i++) {
+    		
+        	if (clientOperation == "receiving") {
+    		    receiveTransactions(transaction[i]);
+    		    
+    		}
+    	}
     	if (clientOperation == "sending") {
     		sendTransactions();
     	}
-    	if (clientOperation == "receiving") {
-		    receiveTransactions(transact);
-		    
-		}
+    	
     	
     	
 		
