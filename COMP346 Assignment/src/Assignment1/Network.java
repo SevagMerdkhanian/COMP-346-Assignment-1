@@ -373,7 +373,7 @@ public class Network extends Thread{
             if (getinputIndexClient() == getoutputIndexServer())
             {	
             	setInBufferStatus("full");
-            
+            	//Thread.yield();
             	System.out.println("\n DEBUG : Network.send() - inComingBuffer status " + getInBufferStatus());
             }
             else
@@ -557,7 +557,6 @@ public class Network extends Thread{
     	
     	while (true)
     	{
-
     		
     		
     		

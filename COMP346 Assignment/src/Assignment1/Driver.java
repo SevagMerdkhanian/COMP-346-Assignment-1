@@ -15,6 +15,7 @@ public class Driver {
     /** 
      * main class
      * @param args the command line arguments
+     * @throws InterruptedException 
      */
     public static void main(String[] args) {
     	
@@ -26,18 +27,12 @@ public class Driver {
         Server objServer = new Server();      
         Client objClientSending = new Client("sending");
         Client objClientReceiving = new Client("receiving");
-        objNetwork.start();
+        //join if we need stuff to run after threads finish
         objServer.start();
+        objNetwork.start();
         objClientSending.start();
         objClientReceiving.start();
-        try {
-        	objNetwork.join(); 
-            objServer.join(); 
-            objClientSending.join();
-            objClientReceiving.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        System.out.println("yes");
         
     }
         
