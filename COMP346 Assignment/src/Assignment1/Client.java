@@ -217,10 +217,8 @@ public class Client extends Thread{
     	readTransactions();
     	long sendClientStartTime, sendClientEndTime, receiveClientStartTime, receiveClientEndTime;
     	for (int i = 0; i < getNumberOfTransactions(); i++) {
-    		
         	if (clientOperation == "receiving") {
-    		    receiveTransactions(transaction[i]);
-    		    
+    		    receiveTransactions(transaction[i]);	    
     		}
     	}
     	if (clientOperation == "sending") {
