@@ -216,6 +216,9 @@ public class Client extends Thread{
     	Transactions transact = new Transactions();
     	readTransactions();
     	long sendClientStartTime, sendClientEndTime, receiveClientStartTime, receiveClientEndTime;
+    	if (!objNetwork.getInBufferStatus().equals("normal") || !objNetwork.getOutBufferStatus().equals("normal")) {
+            Thread.yield();
+        }
         	if (clientOperation == "receiving") {
     		    receiveTransactions(transact);	    
         	}
@@ -223,7 +226,8 @@ public class Client extends Thread{
     	if (clientOperation == "sending") {
     		sendTransactions();
     	}
-    	
+    	objNetwork.disconnect(objNetwork.getClientIP());
+    	System.out.println(" Terminating client " + clientOperation + " thread - Running time");
     	
 		
     	

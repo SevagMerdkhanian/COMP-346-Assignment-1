@@ -189,7 +189,6 @@ public class Server extends Thread{
      public boolean processTransactions(Transactions trans)
      {   int accIndex;             	/* Index position of account to update */
          double newBalance; 		/* Updated account balance */
-              
          /* Process the accounts until the client disconnects */
          while ((!objNetwork.getClientConnectionStatus().equals("disconnected")))
          { 
@@ -197,6 +196,7 @@ public class Server extends Thread{
         	 
         	 if (!objNetwork.getInBufferStatus().equals("empty"))
         	 {
+        		
         		 System.out.println("\n DEBUG : Server.processTransactions() - transferring in account " + trans.getAccountNumber());
         		 
         		 objNetwork.transferIn(trans);                              /* Transfer a transaction from the network input buffer */
@@ -313,15 +313,14 @@ public class Server extends Thread{
     	
     	System.out.println("\n DEBUG : Server.run() - starting server thread " + objNetwork.getServerConnectionStatus());
     	serverStartTime = System.currentTimeMillis();
-    	//processTranscations needs to run, but its running forever...we need to disconnect in network to fix it, but how
-    	//processTransactions(transaction);
+    	if (!objNetwork.getInBufferStatus().equals("normal") || !objNetwork.getOutBufferStatus().equals("normal")) {
+            Thread.yield();
+        }
+    	//processTranscations needs to run, but its running forever...we need to disconnect to fix it, but how
+    	processTransactions(transaction);
+    	objNetwork.disconnect(objNetwork.getServerIP());
         
-        
-        
-        
-        
-        
-        
+
         serverEndTime = System.currentTimeMillis();
         System.out.println("\n Terminating server thread - " + " Running time " + (serverEndTime - serverStartTime) + " milliseconds");
         
