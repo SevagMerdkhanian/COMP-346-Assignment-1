@@ -190,13 +190,16 @@ public class Server extends Thread{
      {   int accIndex;             	/* Index position of account to update */
          double newBalance; 		/* Updated account balance */
          /* Process the accounts until the client disconnects */
+         System.out.println("processTranscations");
          while ((!objNetwork.getClientConnectionStatus().equals("disconnected")))
          { 
-        	 /* while( (objNetwork.getInBufferStatus().equals("empty"))); */  /* Alternatively, busy-wait until the network input buffer is available */
-        	 
+        	 System.out.println("processTranscations WHILE");
+        	 while( (objNetwork.getInBufferStatus().equals("empty"))) {/* Alternatively, busy-wait until the network input buffer is available */
+        		 Thread.yield();
+        	 }
+        	 	
         	 if (!objNetwork.getInBufferStatus().equals("empty"))
         	 {
-        		
         		 System.out.println("\n DEBUG : Server.processTransactions() - transferring in account " + trans.getAccountNumber());
         		 
         		 objNetwork.transferIn(trans);                              /* Transfer a transaction from the network input buffer */
@@ -232,8 +235,8 @@ public class Server extends Thread{
                             System.out.println("\n DEBUG : Server.processTransactions() - Obtaining balance from account" + trans.getAccountNumber());
         				 } 
         		        		 
-        		 // while( (objNetwork.getOutBufferStatus().equals("full"))); /* Alternatively,  busy-wait until the network output buffer is available */
-                                                           
+        		 //while( (objNetwork.getOutBufferStatus().equals("full"))); /* Alternatively,  busy-wait until the network output buffer is available */
+        		 	
         		 System.out.println("\n DEBUG : Server.processTransactions() - transferring out account " + trans.getAccountNumber());
         		 
         		 objNetwork.transferOut(trans);                            		/* Transfer a completed transaction from the server to the network output buffer */
@@ -310,12 +313,11 @@ public class Server extends Thread{
     public void run()
     {   Transactions trans = new Transactions();
     	long serverStartTime, serverEndTime;
-    	
     	System.out.println("\n DEBUG : Server.run() - starting server thread " + objNetwork.getServerConnectionStatus());
     	serverStartTime = System.currentTimeMillis();
-    	if (!objNetwork.getInBufferStatus().equals("normal") || !objNetwork.getOutBufferStatus().equals("normal")) {
-            Thread.yield();
-        }
+    	if (objNetwork.getInBufferStatus() != "normal" || objNetwork.getOutBufferStatus() != "normal" ) {
+    		Thread.yield();
+    	}
     	//processTranscations needs to run, but its running forever...we need to disconnect to fix it, but how
     	processTransactions(transaction);
     	objNetwork.disconnect(objNetwork.getServerIP());
@@ -329,41 +331,7 @@ public class Server extends Thread{
         
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
         
            
     }

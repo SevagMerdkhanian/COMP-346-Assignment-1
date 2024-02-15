@@ -556,24 +556,16 @@ public class Network extends Thread{
     	System.out.println("\n DEBUG : Network.run() - starting network thread");
     	while (true)
     	{
-    		//need to disconnect in order for processTransactions to not run forever...
-    		// Check if both client and server have disconnected
-    		System.out.println("line 561 " + getClientConnectionStatus());
-    		System.out.println("line 562 " + getServerConnectionStatus());
-            if (getClientConnectionStatus().equals("disconnected") && getServerConnectionStatus().equals("disconnected")) {
-                break; // Exit the loop if both have disconnected
-            }
-
-            // Check if the client and server are still connected
-            else {
-        		System.out.println("yes ");
-
-                Thread.yield();
-            }
-
-            // Check if input or output buffers are full or empty
-            
     		
+    	
+            
+    		if (getClientConnectionStatus().equals("disconnected") && getServerConnectionStatus().equals("disconnected")) {
+                break; 
+            }
+    		else {
+    			Thread.yield();
+    		}
+
     		
     		
     		

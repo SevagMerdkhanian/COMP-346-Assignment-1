@@ -27,10 +27,18 @@ public class Driver {
         Server objServer = new Server();      
         Client objClientSending = new Client("sending");
         Client objClientReceiving = new Client("receiving");
+        
         objServer.start();
         objClientSending.start();
+        try {
+			objClientSending.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
         objNetwork.start();
         objClientReceiving.start();
+        
+        
        
         
     }

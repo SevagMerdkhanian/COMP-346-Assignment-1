@@ -158,7 +158,9 @@ public class Client extends Thread{
          
          while (i < getNumberOfTransactions())
          {  
-            // while( objNetwork.getInBufferStatus().equals("full") );     /* Alternatively, busy-wait until the network input buffer is available */
+            while( objNetwork.getInBufferStatus().equals("full")) {/* Alternatively, busy-wait until the network input buffer is available */
+            	Thread.yield();
+            }
                                              	
             transaction[i].setTransactionStatus("sent");   /* Set current transaction status */
            
@@ -214,18 +216,19 @@ public class Client extends Thread{
     	System.out.println(" DEBUG : Client.run() - starting client sending thread connected\r\n");
     	//need to make transactions actually run		
     	Transactions transact = new Transactions();
-    	readTransactions();
     	long sendClientStartTime, sendClientEndTime, receiveClientStartTime, receiveClientEndTime;
-    	if (!objNetwork.getInBufferStatus().equals("normal") || !objNetwork.getOutBufferStatus().equals("normal")) {
-            Thread.yield();
-        }
-        	if (clientOperation == "receiving") {
-    		    receiveTransactions(transact);	    
-        	}
-    	
+    	if (objNetwork.getInBufferStatus() != "normal" || objNetwork.getOutBufferStatus() != "normal" ) {
+    		Thread.yield();
+    	}
+    	if (clientOperation == "receiving") {
+		    receiveTransactions(transact);	    
+    	}
+	
     	if (clientOperation == "sending") {
+    		readTransactions();
     		sendTransactions();
     	}
+    
     	objNetwork.disconnect(objNetwork.getClientIP());
     	System.out.println(" Terminating client " + clientOperation + " thread - Running time");
     	
