@@ -232,7 +232,7 @@ public class Server extends Thread{
                             
                             //System.out.println("\n DEBUG : Server.processTransactions() - Obtaining balance from account" + trans.getAccountNumber());
         				 } 
-        		        		 
+        		 //this runs infinitely if we uncomment it, the buffer is full and never going to empty       		 
         		 //while( (objNetwork.getOutBufferStatus().equals("full"))); /* Alternatively,  busy-wait until the network output buffer is available */
         		 	
         		 //System.out.println("\n DEBUG : Server.processTransactions() - transferring out account " + trans.getAccountNumber());

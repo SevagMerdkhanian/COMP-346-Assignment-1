@@ -32,6 +32,12 @@ public class Driver {
         objClientSending.start();
         objServer.start();
         try {
+        	objClientSending.join();
+			objServer.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+        try {
 			objClientSending.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
