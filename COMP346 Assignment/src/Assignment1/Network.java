@@ -558,7 +558,7 @@ public class Network extends Thread{
     	//while (true)
     	//{
     		
-    		
+    		//need to disconnect in order for processTransactions to not run forever...
     		
     		
     		

@@ -27,14 +27,16 @@ public class Driver {
         Server objServer = new Server();      
         Client objClientSending = new Client("sending");
         Client objClientReceiving = new Client("receiving");
-        //join if we need stuff to run after threads finish
-        
-        objNetwork.start();
         objServer.start();
-        objClientSending.start();
-        objClientReceiving.start();
+        try {
+            objServer.join(); // Wait for objServer to finish
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        objNetwork.start();
+        objClientSending.start(); //doesnt run forever
+        objClientReceiving.start(); //doesnt run forever
         
     }
-        
-    
 }

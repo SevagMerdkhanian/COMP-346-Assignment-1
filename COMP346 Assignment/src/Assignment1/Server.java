@@ -313,10 +313,17 @@ public class Server extends Thread{
     	
     	System.out.println("\n DEBUG : Server.run() - starting server thread " + objNetwork.getServerConnectionStatus());
     	serverStartTime = System.currentTimeMillis();
-    	/* Implement the code for the run method */
+    	//processTranscations needs to run, but its running forever...we need to disconnect in network to fix it, but how
+    	//processTransactions(transaction);
+        
+        
+        
+        
+        
+        
+        
         serverEndTime = System.currentTimeMillis();
         System.out.println("\n Terminating server thread - " + " Running time " + (serverEndTime - serverStartTime) + " milliseconds");
-        processTransactions(trans);
         
         
         
