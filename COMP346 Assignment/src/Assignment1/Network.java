@@ -373,7 +373,7 @@ public class Network extends Thread{
             if (getinputIndexClient() == getoutputIndexServer())
             {	
             	setInBufferStatus("full");
-            	//Thread.yield();
+            	Thread.yield();
             	//System.out.println("\n DEBUG : Network.send() - inComingBuffer status " + getInBufferStatus());
             }
             else
@@ -404,7 +404,6 @@ public class Network extends Thread{
             if ( getoutputIndexClient( ) == getinputIndexServer( ))
             {	
             	setOutBufferStatus("empty");
-            
             	//System.out.println("\n DEBUG : Network.receive() - outGoingBuffer status " + getOutBufferStatus());
             }
             else
@@ -470,7 +469,6 @@ public class Network extends Thread{
             if ( getoutputIndexServer( ) == getinputIndexClient( ))
             {
                 setInBufferStatus("empty");
-                
                 //System.out.println("\n DEBUG : Network.transferIn() - inComingBuffer status " + getInBufferStatus());
             }
             else
@@ -555,9 +553,6 @@ public class Network extends Thread{
     {	
     	//System.out.println("\n DEBUG : Network.run() - starting network thread");
     	while (true) {
-    		
-    	
-            
     		if (getClientConnectionStatus().equals("disconnected") && getServerConnectionStatus().equals("disconnected")) {
                 break; 
             }
@@ -566,6 +561,7 @@ public class Network extends Thread{
     		}
 
     	}
+    	
     	System.out.println(" Terminating network thread - Client disconnected Server disconnected");
 
         

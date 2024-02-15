@@ -139,8 +139,7 @@ public class Client extends Thread{
             
         }
         setNumberOfTransactions(i);		/* Record the number of transactions processed */
-        
-        //System.out.println("\n DEBUG : Client.readTransactions() - " + getNumberOfTransactions() + " transactions processed");
+        System.out.println("\n DEBUG : Client.readTransactions() - " + getNumberOfTransactions() + " transactions processed");
         
         inputStream.close( );
 
@@ -165,8 +164,8 @@ public class Client extends Thread{
             transaction[i].setTransactionStatus("sent");   /* Set current transaction status */
            
             //System.out.println("\n DEBUG : Client.sendTransactions() - sending transaction on account " + transaction[i].getAccountNumber());
-            
             objNetwork.send(transaction[i]);                            /* Transmit current transaction */
+            
             i++;
          }
          
@@ -184,7 +183,9 @@ public class Client extends Thread{
          
          while (i < getNumberOfTransactions())
          {     
-        	 // while( objNetwork.getOutBufferStatus().equals("empty"));  	/* Alternatively, busy-wait until the network output buffer is available */
+//        	  while( objNetwork.getOutBufferStatus().equals("empty")) {/* Alternatively, busy-wait until the network output buffer is available */
+//        		  Thread.yield();
+//        	  }
                                                                         	
             objNetwork.receive(transact);                               	/* Receive updated transaction from the network buffer */
             
@@ -217,75 +218,21 @@ public class Client extends Thread{
     	//need to make transactions actually run		
     	Transactions transact = new Transactions();
     	long sendClientStartTime, sendClientEndTime, receiveClientStartTime, receiveClientEndTime;
-    	if (objNetwork.getInBufferStatus() != "normal" || objNetwork.getOutBufferStatus() != "normal" ) {
+    	if (!objNetwork.getInBufferStatus().equals("normal") || !objNetwork.getOutBufferStatus().equals("normal")) {
     		Thread.yield();
     	}
     	if (clientOperation == "receiving") {
-		    receiveTransactions(transact);	    
+		    receiveTransactions(transact);	
     	}
 	
     	if (clientOperation == "sending") {
-    		readTransactions();
     		sendTransactions();
     	}
     
     	objNetwork.disconnect(objNetwork.getClientIP());
     	System.out.println(" Terminating client " + clientOperation + " thread - Running time");
     	
-		
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
+
     	
     }
 }

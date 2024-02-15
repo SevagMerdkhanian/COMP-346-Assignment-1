@@ -198,7 +198,7 @@ public class Server extends Thread{
         	 	
         	 if (!objNetwork.getInBufferStatus().equals("empty"))
         	 {
-        		 //System.out.println("\n DEBUG : Server.processTransactions() - transferring in account " + trans.getAccountNumber());
+        		 //System.out.println("DEBUG : Server.processTransactions() - transferring in account " + trans.getAccountNumber());
         		 
         		 objNetwork.transferIn(trans);                              /* Transfer a transaction from the network input buffer */
              
@@ -233,7 +233,7 @@ public class Server extends Thread{
                             //System.out.println("\n DEBUG : Server.processTransactions() - Obtaining balance from account" + trans.getAccountNumber());
         				 } 
         		 //this runs infinitely if we uncomment it, the buffer is full and never going to empty       		 
-        		 //while( (objNetwork.getOutBufferStatus().equals("full"))); /* Alternatively,  busy-wait until the network output buffer is available */
+        		 //while( (objNetwork.getOutBufferStatus().equals("full"))) { /* Alternatively,  busy-wait until the network output buffer is available */
         		 	
         		 //System.out.println("\n DEBUG : Server.processTransactions() - transferring out account " + trans.getAccountNumber());
         		 
@@ -313,7 +313,7 @@ public class Server extends Thread{
     	long serverStartTime, serverEndTime;
     	//System.out.println("\n DEBUG : Server.run() - starting server thread " + objNetwork.getServerConnectionStatus());
     	serverStartTime = System.currentTimeMillis();
-    	if (objNetwork.getInBufferStatus() != "normal" || objNetwork.getOutBufferStatus() != "normal" ) {
+    	if (!objNetwork.getInBufferStatus().equals("normal") || !objNetwork.getOutBufferStatus().equals("normal")) {
     		Thread.yield();
     	}
     	//processTranscations needs to run, but its running forever...we need to disconnect to fix it, but how
