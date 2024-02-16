@@ -32,10 +32,15 @@ public class Driver {
         try {
 			objServer.join();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         objClientReceiving.start();
+        try {
+			objClientReceiving.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+        
         objNetwork.start();
         
         
