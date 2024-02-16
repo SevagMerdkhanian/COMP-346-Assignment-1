@@ -192,9 +192,8 @@ public class Server extends Thread{
          /* Process the accounts until the client disconnects */
          while ((!objNetwork.getClientConnectionStatus().equals("disconnected")))
          { 
-        	 while( (objNetwork.getInBufferStatus().equals("empty"))) {/* Alternatively, busy-wait until the network input buffer is available */
-        		 Thread.yield();
-        	 }
+        	 while( (objNetwork.getInBufferStatus().equals("empty"))); /* Alternatively, busy-wait until the network input buffer is available */
+
         	 	
         	 if (!objNetwork.getInBufferStatus().equals("empty"))
         	 {
@@ -232,17 +231,16 @@ public class Server extends Thread{
                             
                             //System.out.println("\n DEBUG : Server.processTransactions() - Obtaining balance from account" + trans.getAccountNumber());
         				 } 
-        		 //this runs infinitely if we uncomment it, the buffer is full and never going to empty       		 
-        		 //while( (objNetwork.getOutBufferStatus().equals("full"))) { /* Alternatively,  busy-wait until the network output buffer is available */
+        		 while( (objNetwork.getOutBufferStatus().equals("full"))); /* Alternatively,  busy-wait until the network output buffer is available */
         		 	
         		 //System.out.println("\n DEBUG : Server.processTransactions() - transferring out account " + trans.getAccountNumber());
         		 
         		 objNetwork.transferOut(trans);                            		/* Transfer a completed transaction from the server to the network output buffer */
-        		 setNumberOfTransactions( (getNumberOfTransactions() +  1) ); 	/* Count the number of transactions processed */
+        		 setNumberOfTransactions((getNumberOfTransactions() +  1) ); 	/* Count the number of transactions processed */
         	 }
          }
          
-         //System.out.println("\n DEBUG : Server.processTransactions() - " + getNumberOfTransactions() + " accounts updated");
+         System.out.println("\n DEBUG : Server.processTransactions() - " + getNumberOfTransactions() + " accounts updated");
               
          return true;
      }
@@ -313,17 +311,13 @@ public class Server extends Thread{
     	long serverStartTime, serverEndTime;
     	//System.out.println("\n DEBUG : Server.run() - starting server thread " + objNetwork.getServerConnectionStatus());
     	serverStartTime = System.currentTimeMillis();
-    	if (!objNetwork.getInBufferStatus().equals("normal") || !objNetwork.getOutBufferStatus().equals("normal")) {
-    		Thread.yield();
-    	}
     	//processTranscations needs to run, but its running forever...we need to disconnect to fix it, but how
+
     	processTransactions(transaction);
     	objNetwork.disconnect(objNetwork.getServerIP());
-        
 
         serverEndTime = System.currentTimeMillis();
         System.out.println("\n Terminating server thread - " + " Running time " + (serverEndTime - serverStartTime) + " milliseconds");
-        
         
         
         
