@@ -185,6 +185,7 @@ public class Client extends Thread{
          {    //This is running forever 
         	  while( objNetwork.getOutBufferStatus().equals("empty")) {
         		  Thread.yield();/* Alternatively, busy-wait until the network output buffer is available */
+        		  //System.out.println("yielding");
         	  }
                                                                         	
             objNetwork.receive(transact);                               	/* Receive updated transaction from the network buffer */

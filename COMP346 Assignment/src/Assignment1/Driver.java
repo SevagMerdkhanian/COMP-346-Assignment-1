@@ -30,14 +30,14 @@ public class Driver {
         objClientSending.start();
         objServer.start();
         objClientReceiving.start();
-
+        objNetwork.start();
         try {
 			objClientReceiving.join();
 			objClientSending.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-        objNetwork.start();
+        
         
 
         
