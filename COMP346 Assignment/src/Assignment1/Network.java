@@ -552,13 +552,17 @@ public class Network extends Thread{
     {	
     	//System.out.println("\n DEBUG : Network.run() - starting network thread");
     	while (true) {
-    		    if (!getInBufferStatus().equals("normal") || !getOutBufferStatus().equals("normal")) {
-    		        Thread.yield();
-    		    }
+//    		    if (!getInBufferStatus().equals("normal") || !getOutBufferStatus().equals("normal")) {
+//    		        Thread.yield();
+//    		    }
     		
     		if (getClientConnectionStatus().equals("disconnected") && getServerConnectionStatus().equals("disconnected")) {
                 break; 
-            }
+    		}
+                else {
+                	Thread.yield();
+                }
+            
 
     	}
     	

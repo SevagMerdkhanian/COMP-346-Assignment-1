@@ -157,7 +157,9 @@ public class Client extends Thread{
          
          while (i < getNumberOfTransactions())
          {  
-            while( objNetwork.getInBufferStatus().equals("full"));/* Alternatively, busy-wait until the network input buffer is available */
+            while( objNetwork.getInBufferStatus().equals("full")) {
+            	Thread.yield();/* Alternatively, busy-wait until the network input buffer is available */
+            }
                                              	
             transaction[i].setTransactionStatus("sent");   /* Set current transaction status */
            
@@ -180,8 +182,10 @@ public class Client extends Thread{
          int i = 0;     /* Index of transaction array */
          
          while (i < getNumberOfTransactions())
-         {     
-        	  while( objNetwork.getOutBufferStatus().equals("empty")); /* Alternatively, busy-wait until the network output buffer is available */
+         {    //This is running forever 
+        	  while( objNetwork.getOutBufferStatus().equals("empty")) {
+        		  Thread.yield();/* Alternatively, busy-wait until the network output buffer is available */
+        	  }
                                                                         	
             objNetwork.receive(transact);                               	/* Receive updated transaction from the network buffer */
             
