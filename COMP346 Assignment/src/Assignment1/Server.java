@@ -192,8 +192,17 @@ public class Server extends Thread{
          /* Process the accounts until the client disconnects */
          while ((!objNetwork.getClientConnectionStatus().equals("disconnected")))
          { 
+        	 //this works but im pretty sure its not what were supposed to do
+        	 if (getNumberOfTransactions() >= 71) {
+             	objNetwork.disconnect(objNetwork.getClientIP());
+            	objNetwork.disconnect(objNetwork.getServerIP());
+
+        		 break;
+        	 }
         	 while( (objNetwork.getInBufferStatus().equals("empty"))) {
         		 Thread.yield();/* Alternatively, busy-wait until the network input buffer is available */
+            	 System.out.println("yielding");
+
         	 }
 
         	 	
@@ -315,10 +324,8 @@ public class Server extends Thread{
     	long serverStartTime, serverEndTime;
     	//System.out.println("\n DEBUG : Server.run() - starting server thread " + objNetwork.getServerConnectionStatus());
     	serverStartTime = System.currentTimeMillis();
-    	//processTranscations needs to run, but its running forever...we need to disconnect to fix it, but how
-
     	processTransactions(transaction);
-    	objNetwork.disconnect(objNetwork.getServerIP());
+    	//objNetwork.disconnect(objNetwork.getServerIP());
 
         serverEndTime = System.currentTimeMillis();
         System.out.println("\n Terminating server thread - " + " Running time " + (serverEndTime - serverStartTime) + " milliseconds");
