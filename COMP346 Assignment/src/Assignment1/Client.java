@@ -219,18 +219,18 @@ public class Client extends Thread{
     	//need to make transactions actually run		
     	Transactions transact = new Transactions();
     	long sendClientStartTime, sendClientEndTime, receiveClientStartTime, receiveClientEndTime;
-    	
+    	while(!objNetwork.getServerConnectionStatus().equals("connected"))
+    	      Thread.yield();
     	if (clientOperation == "receiving") {
-		    System.out.println("receive");
 		    receiveTransactions(transact);
+		    objNetwork.disconnect(objNetwork.getClientIP());
     	}
 	
     	if (clientOperation == "sending") {
-		    System.out.println("send");
     		sendTransactions();
 
     	}
-        	//objNetwork.disconnect(objNetwork.getClientIP());
+        	
 
     	
     	System.out.println(" Terminating client " + clientOperation + " thread - Running time");
