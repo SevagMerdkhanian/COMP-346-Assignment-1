@@ -241,7 +241,7 @@ public class Server extends Thread{
         	 }
          }
          
-         System.out.println("\n DEBUG : Server.processTransactions() - " + getNumberOfTransactions() + " accounts updated");
+         //System.out.println("\n DEBUG : Server.processTransactions() - " + getNumberOfTransactions() + " accounts updated");
               
          return true;
      }
@@ -308,26 +308,20 @@ public class Server extends Thread{
      * @param
      */
     public void run()
-    {   Transactions trans = new Transactions();
+    {   
     	long serverStartTime, serverEndTime;
     	//System.out.println("\n DEBUG : Server.run() - starting server thread " + objNetwork.getServerConnectionStatus());
     	
     	serverStartTime = System.currentTimeMillis();
-    	 while (!objNetwork.getNetworkStatus().equals("active"))
-    	      Thread.yield();
+    	while (!objNetwork.getNetworkStatus().equals("active"))
+    		Thread.yield();
+    	 
     	processTransactions(transaction);
     	objNetwork.disconnect(objNetwork.getServerIP());
 
         serverEndTime = System.currentTimeMillis();
         System.out.println("\n Terminating server thread - " + " Running time " + (serverEndTime - serverStartTime) + " milliseconds");
-        
-        
-        
-        
-        
 
-        
-           
     }
 }
 

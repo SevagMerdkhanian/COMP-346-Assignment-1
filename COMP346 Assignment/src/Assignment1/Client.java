@@ -139,7 +139,7 @@ public class Client extends Thread{
             
         }
         setNumberOfTransactions(i);		/* Record the number of transactions processed */
-        System.out.println("\n DEBUG : Client.readTransactions() - " + getNumberOfTransactions() + " transactions processed");
+        //System.out.println("\n DEBUG : Client.readTransactions() - " + getNumberOfTransactions() + " transactions processed");
         
         inputStream.close( );
 
@@ -182,10 +182,9 @@ public class Client extends Thread{
          int i = 0;     /* Index of transaction array */
          
          while (i < getNumberOfTransactions())
-         {    //This is running forever 
-        	  while( objNetwork.getOutBufferStatus().equals("empty")) {
-        		  Thread.yield();/* Alternatively, busy-wait until the network output buffer is available */
-        		  //System.out.println("yielding");
+         {    
+        	  while( objNetwork.getOutBufferStatus().equals("empty")) {/* Alternatively, busy-wait until the network output buffer is available */
+        		  Thread.yield();
         	  }
                                                                         	
             objNetwork.receive(transact);                               	/* Receive updated transaction from the network buffer */
@@ -216,9 +215,9 @@ public class Client extends Thread{
     public void run()
     {   
     	//System.out.println(" DEBUG : Client.run() - starting client sending thread connected\r\n");
-    	//need to make transactions actually run		
     	Transactions transact = new Transactions();
-    	long sendClientStartTime, sendClientEndTime, receiveClientStartTime, receiveClientEndTime;
+    	long clientStartTime = System.currentTimeMillis();
+    	long clientEndTime =  0;
     	while(!objNetwork.getServerConnectionStatus().equals("connected"))
     	      Thread.yield();
     	if (clientOperation == "receiving") {
@@ -230,10 +229,11 @@ public class Client extends Thread{
     		sendTransactions();
 
     	}
-        	
+	    clientEndTime =  System.currentTimeMillis();
+	    
 
     	
-    	System.out.println(" Terminating client " + clientOperation + " thread - Running time");
+    	System.out.println("\n Terminating client " + clientOperation + " thread - Running time " + (clientEndTime - clientStartTime) + " milliseconds");
     	
 
     	

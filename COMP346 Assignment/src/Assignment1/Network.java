@@ -563,7 +563,7 @@ public class Network extends Thread{
 
     	}
     	
-    	System.out.println(" Terminating network thread - Client disconnected Server disconnected");
+    	System.out.println("\n Terminating network thread - Client disconnected Server disconnected");
 
         
 
